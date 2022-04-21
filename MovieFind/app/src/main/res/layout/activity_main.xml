@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+<!--        <ImageView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="0.2"-->
+<!--            android:src="@mipmap/search"-->
+<!--            android:visibility="visible"/>-->
+<!--        <EditText-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="0.8"-->
+<!--            android:layout_gravity="center_vertical"/>-->
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp"
+            android:background="@drawable/film_reel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/addMovieBtn"
+            android:background="@drawable/curve_btn"
+            android:backgroundTint="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add movies to DB"
+            android:layout_marginBottom="20dp"
+            android:onClick="addMoviesToDb" />
+
+        <Button
+            android:id="@+id/searchMoviesBtn"
+            android:background="@drawable/curve_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search for movies"
+            android:layout_marginBottom="20dp"
+            android:onClick="searchForMovies"/>
+
+        <Button
+            android:id="@+id/searchActorsBtn"
+            android:background="@drawable/curve_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search for actors"
+            android:onClick="searchForActors" />
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

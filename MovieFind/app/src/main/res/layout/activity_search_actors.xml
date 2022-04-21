@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    tools:context=".SearchActors">
+
+    <EditText
+        android:id="@+id/userInputActors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="type here"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView1"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:listitem="@layout/movie_card" />
+    <Button
+        android:id="@+id/searchActorsBtn"
+        android:background="@drawable/curve_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="search"/>
+
+</LinearLayout>
