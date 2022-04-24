@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,13 +24,70 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 class MainActivity : AppCompatActivity() {
     var db: MovieDatabase? = null
+    var movieArray = ArrayList<Movie>()
+    lateinit var adapter: MovieAdapter
+    lateinit var movieSearch: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val search = findViewById<SearchView>(R.id.search)
+        val displayTxtV = findViewById<TextView>(R.id.movieListDisplay)
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+//                Toast.makeText(applicationContext, newText, Toast.LENGTH_SHORT).show()
+
+                var movieTitles:String=""
+                if (newText.length>2){
+                    runBlocking {
+                        withContext(Dispatchers.IO) {
+                            // this will contain the whole of JSON
+                            val stb = StringBuilder("")
+
+                            var urlString = "https://www.omdbapi.com/?s=*$newText*&apikey=6ad84578"
+
+                            val url = URL(urlString)
+                            val con = url.openConnection() as HttpURLConnection
+                            val bf: BufferedReader
+                            try {
+                                bf = BufferedReader(InputStreamReader(con.inputStream))
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                                return@withContext
+                            }
+                            var line = bf.readLine()
+                            while (line != null) {
+                                stb.append(line)
+
+
+                                var jsonObject = JSONObject(line)
+                                var size=0
+                                lateinit var movieObj:JSONObject
+
+                                for (size in 0 until (jsonObject["Search"] as JSONArray).length()){
+                                    movieObj = (jsonObject["Search"] as JSONArray).get(size) as JSONObject
+                                    movieTitles += movieObj.getString("Title")+" : "+ movieObj.getString("Year") +"\n\n"
+                                }
+
+
+                                line = bf.readLine()
+                            }
+                        }
+                    }
+                    displayTxtV.text = movieTitles
+                }
+                return false
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // task HERE
+                return false
+            }
+        })
 
         // create the database
         db = Room.databaseBuilder(
@@ -36,6 +96,11 @@ class MainActivity : AppCompatActivity() {
         ).build()
 
     }
+
+//    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+//        super.onSaveInstanceState(savedInstanceState)
+//        savedInstanceState.putString("searchView",search)
+//    }
 
     fun searchForActors(view: View) {
         val intent = Intent(this, SearchActors::class.java)
@@ -129,8 +194,7 @@ class MainActivity : AppCompatActivity() {
                         jsonArray.getJSONObject(jsonIndex).getString("Director") + "",
                         jsonArray.getJSONObject(jsonIndex).getString("Writer") + "",
                         jsonArray.getJSONObject(jsonIndex).getString("Actors") + "",
-                        jsonArray.getJSONObject(jsonIndex).getString("Plot") + "",
-                        jsonArray.getJSONObject(jsonIndex).getString("Id").toInt()
+                        jsonArray.getJSONObject(jsonIndex).getString("Plot") + ""
                     )
                     movieDao!!.insertMovies(movie)
                 }

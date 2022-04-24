@@ -18,7 +18,7 @@ interface MovieDao {
     @Insert
     suspend fun insertAll(vararg movies: Movie)
 
-    @Query("SELECT * FROM movie WHERE actors = :aName")
-    fun searchActors(aName:String?): List<Movie>
+    @Query("SELECT * FROM movie WHERE Actors LIKE '%' || :aName || '%' ")
+    suspend fun searchActors(aName:String?): List<Movie>
 
 }

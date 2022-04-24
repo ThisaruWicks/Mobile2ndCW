@@ -39,7 +39,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Movie(
-    @ColumnInfo(name = "Title") val title: String?,
+    @PrimaryKey@ColumnInfo(name = "Title") val title: String,
     @ColumnInfo(name = "Year") val year: String?,
     @ColumnInfo(name = "Rated") val rated: String?,
     @ColumnInfo(name = "Released") val released: String?,
@@ -49,5 +49,4 @@ data class Movie(
     @ColumnInfo(name = "Writer") val writer: String?,
     @ColumnInfo(name = "Actors") val actors: String?,
     @ColumnInfo(name = "Plot") val plot: String?,
-    @PrimaryKey(autoGenerate = true) var id: Int//last so that we don't have to pass an ID value or named arguments
 )

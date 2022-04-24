@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class SearchActors : AppCompatActivity() {
-    lateinit var adapter: MovieAdapter
-    var movieArray = ArrayList<Movie>()
+    lateinit var adapter1: MovieAdapter
+    var movieArrayS = ArrayList<Movie>()
+    lateinit var outputV: List<Movie>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +33,25 @@ class SearchActors : AppCompatActivity() {
             ).build()
             runBlocking {
                 launch {
-                    val movieDao = db?.movieDao()
-                    movieDao!!.searchActors(actorName.text.toString())
+                    var movieDao1 = db?.movieDao()
+                    outputV = movieDao1!!.searchActors(actorName.text.toString())
+                    if (outputV.size == 0) {
+                        Toast.makeText(applicationContext, "Not fount", Toast.LENGTH_SHORT).show()
+                    } else {
+                        movieDao1!!.searchActors(actorName.text.toString())
+                        var i = 0
+                        while (i <= outputV.size - 1) {
+                            movieArrayS.add(outputV[i])
+                            i++
+                        }
 
-                    var movieAll = movieDao?.getAll()
-                    print(movieAll)
+                    }
                 }
             }
-            Toast.makeText(applicationContext, "Searched", Toast.LENGTH_SHORT).show()
-            recyclerView.layoutManager= LinearLayoutManager(this.applicationContext)
-            adapter = MovieAdapter(movieArray)
-            recyclerView.adapter=adapter
-            adapter.setOnItemClickListner(object :MovieAdapter.onItemClickListner{
+            recyclerView.layoutManager = LinearLayoutManager(this.applicationContext)
+            adapter1 = MovieAdapter(outputV)
+            recyclerView.adapter = adapter1
+            adapter1.setOnItemClickListner(object : MovieAdapter.onItemClickListner {
                 override fun onItemClick(position: Int) {
                 }
             })

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieSearch"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <EditText
+        android:id="@+id/userInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="type here">
+    </EditText>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:listitem="@layout/movie_card" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/retrieve"
+            android:background="@drawable/curve_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retrieve"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="200dp"/>
+        <Button
+            android:id="@+id/saveToDB"
+            android:background="@drawable/curve_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save to data base"
+            android:layout_marginHorizontal="200dp"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -21,7 +21,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class MovieSearch : AppCompatActivity() {
-    var movieArray = ArrayList<Movie>()
     lateinit var adapter: MovieAdapter
     lateinit var movieSearch: Movie
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +39,7 @@ class MovieSearch : AppCompatActivity() {
 
         rBtn.setOnClickListener {
             // start the fetching of data in the background
+            var movieArray = ArrayList<Movie>()
             runBlocking {
                 withContext(Dispatchers.IO) {
                     // this will contain the whole of JSON
@@ -75,9 +75,9 @@ class MovieSearch : AppCompatActivity() {
                             jsonObject.getString("Director") + "",
                             jsonObject.getString("Writer") + "",
                             jsonObject.getString("Actors") + "",
-                            jsonObject.getString("Plot") + "",
-                            0
+                            jsonObject.getString("Plot") + ""
                         )
+
                         var movieSearchChanged = Movie(
                             "Title : "+jsonObject.getString("Title") + "",
                             "Year : "+jsonObject.getString("Year") + "",
@@ -88,8 +88,7 @@ class MovieSearch : AppCompatActivity() {
                             "Director : "+jsonObject.getString("Director") + "",
                             "Writer : "+jsonObject.getString("Writer") + "",
                             "Actor : "+jsonObject.getString("Actors") + "",
-                            "Plot : "+jsonObject.getString("Plot") + "",
-                            0
+                            "Plot : "+jsonObject.getString("Plot") + ""
                         )
 
                         movieArray.add(movieSearchChanged)
