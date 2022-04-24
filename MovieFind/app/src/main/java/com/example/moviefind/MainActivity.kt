@@ -1,21 +1,16 @@
 package com.example.moviefind
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.SearchView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -30,13 +25,19 @@ class MainActivity : AppCompatActivity() {
     var movieArray = ArrayList<Movie>()
     lateinit var adapter: MovieAdapter
     lateinit var movieSearch: Movie
+    lateinit var search:SearchView
+    lateinit var displayTxtV:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val search = findViewById<SearchView>(R.id.search)
-        val displayTxtV = findViewById<TextView>(R.id.movieListDisplay)
+        var displayTxtV = findViewById<TextView>(R.id.movieListDisplay)
+
+//        if(savedInstanceState != null){
+//            displayTxtV.text = savedInstanceState.getString("mainOutput").toString()
+//        }
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -99,8 +100,13 @@ class MainActivity : AppCompatActivity() {
 
 //    override fun onSaveInstanceState(savedInstanceState: Bundle) {
 //        super.onSaveInstanceState(savedInstanceState)
-//        savedInstanceState.putString("searchView",search)
+//        savedInstanceState.putString("mainOutput", displayTxtV.toString())
 //    }
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//        displayTxtV.setText(savedInstanceState.getString("mainOutput"),displayTxtV)
+//    }
+
 
     fun searchForActors(view: View) {
         val intent = Intent(this, SearchActors::class.java)

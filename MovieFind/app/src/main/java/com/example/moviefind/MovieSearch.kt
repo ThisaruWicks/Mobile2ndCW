@@ -1,11 +1,10 @@
 package com.example.moviefind
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -23,6 +22,8 @@ import java.net.URL
 class MovieSearch : AppCompatActivity() {
     lateinit var adapter: MovieAdapter
     lateinit var movieSearch: Movie
+    lateinit var editText:EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
@@ -137,5 +138,11 @@ class MovieSearch : AppCompatActivity() {
         }
 
     }
+
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//        mEditText.setText(SAVED_TEXT_KEY)
+//        val myString = savedInstanceState.getString(SAVED_TEXT_KEY)
+//    }
 
 }
